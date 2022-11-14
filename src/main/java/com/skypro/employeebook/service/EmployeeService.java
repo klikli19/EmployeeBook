@@ -35,11 +35,11 @@ public class EmployeeService {
                 mapToDouble(Employee::getSalary).sum();
     }
 
-    public Double getEmployeeWithMinSalary() {
+    public Double getMinSalary() {
         return employees.values().stream().mapToDouble(Employee::getSalary).min().orElse(0);
     }
 
-    public Double getEmployeeWithMaxSalary() {
+    public Double getMaxSalary() {
         return employees.values().stream().mapToDouble(Employee::getSalary).max().orElse(0);
     }
 
