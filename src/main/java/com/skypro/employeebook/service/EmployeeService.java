@@ -35,12 +35,12 @@ public class EmployeeService {
                 mapToDouble(Employee::getSalary).sum();
     }
 
-    public OptionalDouble getEmployeeWithMinSalary() {
-        return employees.values().stream().mapToDouble(Employee::getSalary).min();
+    public Double getEmployeeWithMinSalary() {
+        return employees.values().stream().mapToDouble(Employee::getSalary).min().orElse(0);
     }
 
-    public OptionalDouble getEmployeeWithMaxSalary() {
-        return employees.values().stream().mapToDouble(Employee::getSalary).max();
+    public Double getEmployeeWithMaxSalary() {
+        return employees.values().stream().mapToDouble(Employee::getSalary).max().orElse(0);
     }
 
     public List<Employee> getAllEmployeesWithAverageSalary(){
