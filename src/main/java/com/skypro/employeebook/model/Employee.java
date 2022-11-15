@@ -1,5 +1,9 @@
 package com.skypro.employeebook.model;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 public class Employee {
     private final String firstName;
     private final String lastName;
@@ -9,8 +13,16 @@ public class Employee {
     private final int id;
 
     public Employee(String firstName, String lastName, int department, double salary) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        if (!StringUtils.isAllBlank(firstName)){
+            this.firstName = StringUtils.capitalize(firstName);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if (!StringUtils.isAllBlank(lastName)){
+            this.lastName = StringUtils.capitalize(lastName);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
         this.department = department;
         this.salary = salary;
         this.id = countId++;
@@ -40,6 +52,7 @@ public class Employee {
     public double getSalary() {
         return salary;
     }
+
 
 
     @Override
