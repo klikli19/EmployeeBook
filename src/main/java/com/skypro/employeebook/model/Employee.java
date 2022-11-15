@@ -13,12 +13,12 @@ public class Employee {
     private final int id;
 
     public Employee(String firstName, String lastName, int department, double salary) {
-        if (!StringUtils.isAllBlank(firstName)){
+        if (StringUtils.isAlpha(firstName) && !StringUtils.isAllBlank(firstName)){
             this.firstName = StringUtils.capitalize(firstName);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        if (!StringUtils.isAllBlank(lastName)){
+        if (StringUtils.isAlpha(lastName) && !StringUtils.isAllBlank(lastName)){
             this.lastName = StringUtils.capitalize(lastName);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
