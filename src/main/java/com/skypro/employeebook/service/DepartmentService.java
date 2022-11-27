@@ -1,7 +1,6 @@
 package com.skypro.employeebook.service;
 import com.skypro.employeebook.model.Employee;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.Collection;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-@SessionScope
 public class DepartmentService {
     private final EmployeeService employeeService;
 
@@ -30,7 +28,7 @@ public class DepartmentService {
         return getEmployeeDepartment(department).mapToDouble(Employee::getSalary).min().orElseThrow(RuntimeException::new);
     }
 
-    public Collection<Employee> getEmployeeByDepartment(int department) {
+    public List<Employee> getEmployeeByDepartment(int department) {
         return getEmployeeDepartment(department).collect(Collectors.toList());
     }
 
