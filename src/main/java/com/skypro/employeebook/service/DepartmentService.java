@@ -29,7 +29,8 @@ public class DepartmentService {
     }
 
     public List<Employee> getEmployeeByDepartment(int department) {
-        return getEmployeeDepartment(department).collect(Collectors.toList());
+        return employeeService.getAllEmployees().stream().filter(employee -> employee.getDepartment() == department).
+                collect(Collectors.toList());
     }
 
     public Map<Integer, List<Employee>> getGroupedEmployeeByDepartment() {
