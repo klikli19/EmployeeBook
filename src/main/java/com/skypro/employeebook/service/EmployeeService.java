@@ -1,8 +1,10 @@
 package com.skypro.employeebook.service;
 
+import com.skypro.employeebook.Exception.EmployeeEmptyValueException;
 import com.skypro.employeebook.model.Employee;
 import com.skypro.employeebook.record.EmployeeRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,9 +18,9 @@ public class EmployeeService {
         return this.employees.values();
     }
 
-    public Employee addEmployee(EmployeeRequest employeeRequest) throws IllegalAccessException {
-        if (employeeRequest.getFirstName() == null || employeeRequest.getLastName() == null) {
-            throw new IllegalAccessException("Введите имя и фамилию");
+    public Employee addEmployee(EmployeeRequest employeeRequest) {
+        if (!StringUtils.isAlpha(employeeRequest.getFirstName()) || !StringUtils.isAlpha(employeeRequest.getLastName())) {
+            throw new EmployeeEmptyValueException();
         }
         Employee employee = new Employee(employeeRequest.getFirstName(),
                 employeeRequest.getLastName(),
@@ -44,6 +46,6 @@ public class EmployeeService {
     }
 
     public List<Employee> getAllEmployeesWithAverageSalary(){
-        var averageSalary = employees.values().stream().mapToDouble(Employee::getSalary).average().orElseThrow();
+        var averageSalary = employees.values().stream().mapToDouble(Employee::getSalary).average().orElseThrow(EmployeeEmptyValueException::new);
         return employees.values().stream().filter(employee -> averageSalary < employee.getSalary()).collect(Collectors.toList());}
 }
